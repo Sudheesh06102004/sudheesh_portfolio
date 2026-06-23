@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sudheesh S S - Portfolio</title>
+  <meta name="description" content="Terminal-inspired portfolio of Sudheesh S, an Electronics and Communication Engineering graduate focused on software development, web development, and UI/UX." />
+  <meta property="og:title" content="Sudheesh S | Terminal Portfolio" />
+  <meta property="og:description" content="Dark hacker OS inspired portfolio with projects, internships, skills, education, and certifications." />
+  <meta property="og:type" content="website" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Bebas+Neue&family=Oxanium:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --text-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
+      --text-sm: clamp(0.875rem, 0.8rem + 0.35vw, 1rem);
+      --text-base: clamp(1rem, 0.95rem + 0.25vw, 1.08rem);
+      --text-lg: clamp(1.125rem, 1rem + 0.75vw, 1.4rem);
+      --text-xl: clamp(1.5rem, 1.2rem + 1.25vw, 2.3rem);
+      --text-2xl: clamp(2rem, 1.2rem + 2.5vw, 3.6rem);
+      --text-hero: clamp(3.2rem, 1rem + 7vw, 7rem);
+      --space-1: 0.25rem;
+      --space-2: 0.5rem;
+      --space-3: 0.75rem;
+      --space-4: 1rem;
+      --space-5: 1.25rem;
+      --space-6: 1.5rem;
+      --space-8: 2rem;
+      --space-10: 2.5rem;
+      --space-12: 3rem;
+      --space-16: 4rem;
+      --space-20: 5rem;
+      --space-24: 6rem;
+      --radius-sm: 0.4rem;
+      --radius-md: 0.7rem;
+      --radius-lg: 1rem;
+      --radius-xl: 1.35rem;
+      --radius-full: 999px;
+      --transition: 180ms cubic-bezier(0.16, 1, 0.3, 1);
+      --font-body: 'JetBrains Mono', monospace;
+      --font-display: 'Bebas Neue', sans-serif;
+      --font-accent: 'Oxanium', sans-serif;
+      --color-bg: #060908;
+      --color-surface: #0b1110;
+      --color-surface-2: #101817;
+      --color-surface-3: #141f1d;
+      --color-border: rgba(110, 255, 195, 0.18);
+      --color-divider: rgba(145, 255, 215, 0.1);
+      --color-text: #e8fff5;
+      --color-text-muted: #9bcab9;
+      --color-text-faint: #5f867a;
+      --color-primary: #5dff9a;
+      --color-cyan: #54e9ff;
+      --color-amber: #ffbf5f;
+      --color-danger: #ff6a88;
+      --shadow-sm: 0 0 0 1px rgba(93,255,154,0.06), 0 8px 24px rgba(0,0,0,0.22);
+      --shadow-md: 0 0 0 1px rgba(84,233,255,0.08), 0 16px 48px rgba(0,0,0,0.34);
+      --grid: minmax(0, 1200px);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: var(--font-body);
+      font-size: var(--text-base);
+      line-height: 1.65;
+      color: var(--color-text);
+      background:
+        radial-gradient(circle at top right, rgba(84,233,255,0.08), transparent 26%),
+        radial-gradient(circle at 20% 10%, rgba(93,255,154,0.08), transparent 24%),
+        linear-gradient(180deg, #040605 0%, #060908 38%, #050706 100%);
+      overflow-x: hidden;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(93,255,154,0.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(93,255,154,0.045) 1px, transparent 1px);
+      background-size: 36px 36px;
+      mask-image: linear-gradient(180deg, rgba(255,255,255,0.65), transparent 95%);
+      opacity: 0.33;
+    }
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background: repeating-linear-gradient(
+        180deg,
+        rgba(255,255,255,0.02) 0,
+        rgba(255,255,255,0.02) 1px,
+        transparent 2px,
+        transparent 4px
+      );
+      opacity: 0.18;
+      mix-blend-mode: screen;
+    }
+    a { color: inherit; text-decoration: none; }
+    img, svg { display: block; max-width: 100%; }
+    button { font: inherit; }
+    :focus-visible {
+      outline: 2px solid var(--color-cyan);
+      outline-offset: 3px;
+      border-radius: var(--radius-sm);
+    }
+    .skip-link {
+      position: absolute;
+      left: var(--space-4);
+      top: -100px;
+      padding: var(--space-3) var(--space-4);
+      background: var(--color-primary);
+      color: #03110b;
+      z-index: 1000;
+    }
+    .skip-link:focus { top: var(--space-4); }
+    .shell {
+      width: min(100% - 1.5rem, 1380px);
+      margin: 0 auto;
+      padding: var(--space-4);
+    }
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(16px);
+      background: rgba(6, 9, 8, 0.72);
+      border-bottom: 1px solid var(--color-divider);
+    }
+    .topbar-inner {
+      width: min(100% - 1.5rem, 1380px);
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-4);
+      padding: var(--space-3) var(--space-4);
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      min-width: 0;
+    }
+    .brand-mark {
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 0.65rem;
+      border: 1px solid rgba(84,233,255,0.32);
+      background: linear-gradient(135deg, rgba(84,233,255,0.12), rgba(93,255,154,0.12));
+      color: var(--color-primary);
+      display: grid;
+      place-items: center;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.02), 0 0 20px rgba(93,255,154,0.08);
+    }
+    .brand-mark svg { width: 1.4rem; height: 1.4rem; }
+    .brand-copy strong {
+      display: block;
+      font-family: var(--font-accent);
+      font-size: var(--text-sm);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--color-text);
+    }
+    .brand-copy span {
+      color: var(--color-text-muted);
+      font-size: var(--text-xs);
+    }
+    .nav {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: flex-end;
+      gap: var(--space-2);
+    }
+    .nav a {
+      padding: 0.7rem 0.95rem;
+      border-radius: var(--radius-full);
+      border: 1px solid transparent;
+      color: var(--color-text-muted);
+      font-size: var(--text-xs);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      transition: border-color var(--transition), color var(--transition), background var(--transition);
+    }
+    .nav a:hover,
+    .nav a.active {
+      color: var(--color-primary);
+      border-color: rgba(93,255,154,0.24);
+      background: rgba(93,255,154,0.06);
+    }
+    main { padding: var(--space-8) 0 var(--space-16); }
+    section { scroll-margin-top: 6rem; }
+    .panel {
+      position: relative;
+      background: linear-gradient(180deg, rgba(11,17,16,0.96), rgba(8,12,11,0.96));
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-md);
+      overflow: hidden;
+    }
+    .panel::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: linear-gradient(135deg, rgba(93,255,154,0.06), transparent 28%, transparent 72%, rgba(84,233,255,0.05));
+    }
+    .terminal-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-4);
+      padding: var(--space-3) var(--space-4);
+      border-bottom: 1px solid var(--color-divider);
+      background: rgba(255,255,255,0.015);
+    }
+    .lights { display: flex; gap: 0.45rem; }
+    .lights span {
+      width: 0.72rem;
+      height: 0.72rem;
+      border-radius: 50%;
+      box-shadow: 0 0 12px currentColor;
+    }
+    .lights span:nth-child(1) { color: var(--color-danger); background: currentColor; }
+    .lights span:nth-child(2) { color: var(--color-amber); background: currentColor; }
+    .lights span:nth-child(3) { color: var(--color-primary); background: currentColor; }
+    .bar-title {
+      color: var(--color-text-faint);
+      font-size: var(--text-xs);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+    .hero {
+      display: grid;
+      grid-template-columns: 1.4fr 0.9fr;
+      gap: var(--space-8);
+      padding: clamp(var(--space-6), 4vw, var(--space-12));
+      min-height: min(82vh, 900px);
+      align-items: center;
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      color: var(--color-cyan);
+      font-size: var(--text-xs);
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      margin-bottom: var(--space-4);
+    }
+    .eyebrow::before {
+      content: ">";
+      color: var(--color-primary);
+    }
+    h1 {
+      margin: 0;
+      font-family: var(--font-display);
+      font-size: var(--text-hero);
+      line-height: 0.92;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: #ecfff5;
+      text-shadow: 0 0 24px rgba(93,255,154,0.16);
+    }
+    .hero-subtitle {
+      margin: var(--space-4) 0 var(--space-5);
+      font-family: var(--font-accent);
+      font-size: var(--text-lg);
+      color: var(--color-primary);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+    .hero p {
+      margin: 0;
+      max-width: 66ch;
+      color: var(--color-text-muted);
+    }
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-3);
+      margin-top: var(--space-6);
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 0.9rem 1.2rem;
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(93,255,154,0.22);
+      font-size: var(--text-sm);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      transition: transform var(--transition), box-shadow var(--transition), background var(--transition), border-color var(--transition), color var(--transition);
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-primary {
+      background: linear-gradient(135deg, rgba(93,255,154,0.15), rgba(84,233,255,0.09));
+      color: var(--color-primary);
+      box-shadow: 0 0 0 1px rgba(93,255,154,0.1), 0 0 24px rgba(93,255,154,0.12);
+    }
+    .btn-secondary {
+      background: rgba(255,255,255,0.02);
+      color: var(--color-cyan);
+      border-color: rgba(84,233,255,0.2);
+    }
+    .status-grid {
+      margin-top: var(--space-8);
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: var(--space-3);
+    }
+    .status-card {
+      padding: var(--space-4);
+      border-radius: var(--radius-lg);
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(84,233,255,0.1);
+    }
+    .status-card strong {
+      display: block;
+      font-family: var(--font-accent);
+      font-size: var(--text-xl);
+      color: var(--color-text);
+      margin-bottom: var(--space-1);
+    }
+    .status-card span {
+      color: var(--color-text-muted);
+      font-size: var(--text-xs);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+    .hero-aside {
+      display: grid;
+      gap: var(--space-4);
+      align-self: stretch;
+    }
+    .console,
+    .contact-card,
+    .mini-card,
+    .project-card,
+    .timeline-card,
+    .certs-card,
+    .footer-card {
+      position: relative;
+      background: rgba(16, 24, 23, 0.88);
+      border: 1px solid rgba(84,233,255,0.14);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+    .console { padding: var(--space-5); }
+    .console pre {
+      margin: 0;
+      white-space: pre-wrap;
+      color: var(--color-text-muted);
+      font-size: var(--text-sm);
+      line-height: 1.8;
+    }
+    .console .line-green { color: var(--color-primary); }
+    .console .line-cyan { color: var(--color-cyan); }
+    .console .line-amber { color: var(--color-amber); }
+    .console .cursor::after {
+      content: "_";
+      margin-left: 0.2rem;
+      color: var(--color-primary);
+      animation: blink 1s steps(1, end) infinite;
+    }
+    @keyframes blink { 50% { opacity: 0; } }
+    .contact-card { padding: var(--space-5); }
+    .panel-title {
+      margin: 0 0 var(--space-4);
+      font-family: var(--font-accent);
+      font-size: var(--text-sm);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--color-amber);
+    }
+    .contact-list {
+      display: grid;
+      gap: var(--space-3);
+    }
+    .contact-item {
+      display: grid;
+      gap: 0.35rem;
+      padding-bottom: var(--space-3);
+      border-bottom: 1px dashed rgba(155,202,185,0.14);
+    }
+    .contact-item:last-child { border-bottom: 0; padding-bottom: 0; }
+    .contact-item label {
+      color: var(--color-text-faint);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      font-size: var(--text-xs);
+    }
+    .contact-item a,
+    .contact-item span {
+      color: var(--color-text);
+      word-break: break-word;
+    }
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: var(--space-4);
+      margin-bottom: var(--space-5);
+    }
+    .section-head h2 {
+      margin: 0;
+      font-family: var(--font-display);
+      font-size: var(--text-2xl);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--color-text);
+    }
+    .section-head p {
+      margin: 0;
+      color: var(--color-text-muted);
+      max-width: 60ch;
+      font-size: var(--text-sm);
+    }
+    .section-shell {
+      margin-top: var(--space-8);
+      padding: clamp(var(--space-5), 3vw, var(--space-8));
+    }
+    .about-grid,
+    .skills-grid,
+    .extras-grid,
+    .two-col {
+      display: grid;
+      gap: var(--space-4);
+    }
+    .about-grid { grid-template-columns: 1.15fr 0.85fr; }
+    .card-body { padding: var(--space-5); }
+    .card-body p { margin: 0; color: var(--color-text-muted); }
+    .key-list,
+    .tag-list,
+    .link-list,
+    .cert-list,
+    .bullet-list { list-style: none; margin: 0; padding: 0; }
+    .key-list { display: grid; gap: var(--space-3); }
+    .key-list li,
+    .bullet-list li {
+      position: relative;
+      padding-left: 1.2rem;
+      color: var(--color-text-muted);
+    }
+    .key-list li::before,
+    .bullet-list li::before {
+      content: ">";
+      position: absolute;
+      left: 0;
+      color: var(--color-primary);
+    }
+    .chip-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2);
+    }
+    .chip {
+      padding: 0.55rem 0.75rem;
+      border-radius: var(--radius-full);
+      border: 1px solid rgba(84,233,255,0.14);
+      background: rgba(84,233,255,0.06);
+      color: var(--color-cyan);
+      font-size: var(--text-xs);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .skills-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .mini-card { padding: var(--space-5); }
+    .mini-card h3,
+    .project-card h3,
+    .timeline-card h3,
+    .certs-card h3,
+    .footer-card h3 {
+      margin: 0 0 var(--space-3);
+      font-family: var(--font-accent);
+      font-size: var(--text-lg);
+      color: var(--color-text);
+    }
+    .mini-card p,
+    .project-card p,
+    .timeline-card p,
+    .certs-card p,
+    .footer-card p { margin: 0; color: var(--color-text-muted); }
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-4);
+    }
+    .project-card { padding: var(--space-5); }
+    .project-meta {
+      display: inline-flex;
+      margin-bottom: var(--space-3);
+      color: var(--color-amber);
+      font-size: var(--text-xs);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+    }
+    .project-card .bullet-list { margin-top: var(--space-4); display: grid; gap: var(--space-2); }
+    .timeline {
+      display: grid;
+      gap: var(--space-4);
+    }
+    .timeline-card {
+      padding: var(--space-5);
+      border-left: 1px solid rgba(93,255,154,0.22);
+    }
+    .timeline-top {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-3);
+      margin-bottom: var(--space-3);
+    }
+    .timeline-top span {
+      color: var(--color-cyan);
+      font-size: var(--text-xs);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+    }
+    .certs-card { padding: var(--space-5); }
+    .cert-list { display: grid; gap: var(--space-3); }
+    .cert-list li {
+      padding: var(--space-3) var(--space-4);
+      border-radius: var(--radius-md);
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,191,95,0.12);
+      color: var(--color-text-muted);
+    }
+    .extras-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .footer-card {
+      margin-top: var(--space-8);
+      padding: var(--space-6);
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: var(--space-6);
+      align-items: center;
+    }
+    .footer-card .cta-row { margin-top: var(--space-4); }
+    .footer-note {
+      color: var(--color-text-faint);
+      font-size: var(--text-xs);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+    .social-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2);
+      justify-content: flex-end;
+    }
+    .social-links a {
+      padding: 0.8rem 1rem;
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(84,233,255,0.14);
+      color: var(--color-cyan);
+      background: rgba(84,233,255,0.04);
+      font-size: var(--text-xs);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+    }
+    .muted { color: var(--color-text-muted); }
+    .accent-green { color: var(--color-primary); }
+    .accent-cyan { color: var(--color-cyan); }
+    .accent-amber { color: var(--color-amber); }
+    @media (max-width: 1100px) {
+      .hero,
+      .about-grid,
+      .footer-card,
+      .project-grid,
+      .skills-grid,
+      .extras-grid { grid-template-columns: 1fr; }
+      .social-links { justify-content: flex-start; }
+    }
+    @media (max-width: 780px) {
+      .topbar-inner,
+      .section-head { align-items: flex-start; }
+      .topbar-inner,
+      .hero,
+      .footer-card { gap: var(--space-4); }
+      .nav { justify-content: flex-start; }
+      .status-grid { grid-template-columns: 1fr; }
+      h1 { line-height: 0.98; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand" aria-label="Sudheesh S logo and site title">
+        <div class="brand-mark">
+          <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M11 14h11l-8 10 8 10H11" />
+            <path d="M37 14H26l8 10-8 10h11" />
+            <path d="M22 38h4" />
+          </svg>
+        </div>
+        <div class="brand-copy">
+          <strong>Sudheesh S S</strong>
+          <span>terminal://portfolio.sys</span>
+        </div>
+      </div>
+      <nav class="nav" aria-label="Primary navigation">
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#experience">Experience</a>
+        <a href="#certifications">Certifications</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content" class="shell">
+    <section class="panel hero" id="home" aria-labelledby="hero-title">
+      <div>
+        <div class="eyebrow">User authenticated</div>
+        <h1 id="hero-title">Sudheesh S S</h1>
+        <div class="hero-subtitle">Electronics &amp; Communication Engineer // UI/UX &amp; Web Developer</div>
+        <p>
+          Engineering graduate with a strong interest in software development, front-end experiences, and problem solving. Built practical work across web development, UI/UX design, image processing, and optimization-driven wireless systems.
+        </p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="mailto:ssudheesh97432@gmail.com">Open Contact Channel</a>
+          <a class="btn btn-secondary" href="#projects">Inspect Projects</a>
+        </div>
+        <div class="status-grid" aria-label="Quick profile statistics">
+          <article class="status-card">
+            <strong>8.76</strong>
+            <span>CGPA</span>
+          </article>
+          <article class="status-card">
+            <strong>3+</strong>
+            <span>Internship Roles</span>
+          </article>
+          <article class="status-card">
+            <strong>2026</strong>
+            <span>Graduate Batch</span>
+          </article>
+        </div>
+      </div>
+
+      <div class="hero-aside">
+        <div class="console" aria-label="Terminal summary">
+          <div class="panel-title">system boot log</div>
+          <pre><span class="line-green">Who am i</span>
+Sudheesh S S
+
+<span class="line-cyan">role --current</span>
+ECE graduate with software, web, and UI/UX focus
+
+<span class="line-amber">stack --primary</span>
+Java / HTML / CSS / JavaScript / SQL / Figma / Tailwind CSS / Bootstrap / Git
+
+<span class="line-green">mission --next</span>
+Build useful products, learn fast, contribute early
+
+<span class="cursor line-cyan">ready_for_deployment</span></pre>
+        </div>
+
+        <aside class="contact-card" aria-labelledby="contact-panel-title">
+          <h2 class="panel-title" id="contact-panel-title">network endpoints</h2>
+          <div class="contact-list">
+            <div class="contact-item">
+              <label>Phone</label>
+              <a href="tel:+919629244519">+91 9629244519</a>
+            </div>
+            <div class="contact-item">
+              <label>Email</label>
+              <a href="mailto:ssudheesh97432@gmail.com">ssudheesh97432@gmail.com</a>
+            </div>
+            <div class="contact-item">
+              <label>Profiles</label>
+              <span>GitHub · LinkedIn · HackerRank · GeeksforGeeks</span>
+            </div>
+            <div class="contact-item">
+              <label>Languages</label>
+              <span>English · Tamil · Malayalam</span>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="about" class="panel section-shell" aria-labelledby="about-title">
+      <div class="terminal-bar">
+        <div class="lights"><span></span><span></span><span></span></div>
+        <div class="bar-title">profile.readme</div>
+      </div>
+      <div class="card-body">
+        <div class="section-head">
+          <div>
+            <h2 id="about-title">Executive Summary</h2>
+            <p>A concise system view of education, interests, and professional direction.</p>
+          </div>
+        </div>
+        <div class="about-grid">
+          <article class="mini-card">
+            <h3>Overview</h3>
+            <p>
+              Electronics and Communication Engineering graduate with a solid base in engineering fundamentals and a clear shift toward software development and IT. Focused on applying technical thinking, problem solving, and continuous learning to real-world products and teams.
+            </p>
+          </article>
+          <article class="mini-card">
+            <h3>Education Snapshot</h3>
+            <ul class="key-list">
+              <li><span class="accent-green">B.E. Electronics and Communication Engineering</span>, St. Joseph’s College of Engineering, 2022–2026.</li>
+              <li>CGPA: <span class="accent-cyan">8.76</span>.</li>
+              <li>HSC: 91.83%.</li>
+              <li>SSLC: 86%.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills" class="panel section-shell" aria-labelledby="skills-title">
+      <div class="terminal-bar">
+        <div class="lights"><span></span><span></span><span></span></div>
+        <div class="bar-title">skills.matrix</div>
+      </div>
+      <div class="card-body">
+        <div class="section-head">
+          <div>
+            <h2 id="skills-title">Skills</h2>
+            <p>Core languages, tools, design strengths, and foundational problem-solving capability.</p>
+          </div>
+        </div>
+        <div class="skills-grid">
+          <article class="mini-card">
+            <h3>Programming</h3>
+            <div class="chip-wrap">
+              <span class="chip">Java</span>
+              <span class="chip">JavaScript</span>
+              <span class="chip">SQL</span>
+            </div>
+          </article>
+          <article class="mini-card">
+            <h3>Web Development</h3>
+            <div class="chip-wrap">
+              <span class="chip">HTML</span>
+              <span class="chip">CSS</span>
+              <span class="chip">Bootstrap</span>
+              <span class="chip">Tailwind CSS</span>
+            </div>
+          </article>
+          <article class="mini-card">
+            <h3>Design &amp; Tools</h3>
+            <div class="chip-wrap">
+              <span class="chip">Figma</span>
+              <span class="chip">Wireframing</span>
+              <span class="chip">Prototyping</span>
+              <span class="chip">Git</span>
+              <span class="chip">GitHub</span>
+              <span class="chip">VS Code</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects" class="panel section-shell" aria-labelledby="projects-title">
+      <div class="terminal-bar">
+        <div class="lights"><span></span><span></span><span></span></div>
+        <div class="bar-title">projects.archive</div>
+      </div>
+      <div class="card-body">
+        <div class="section-head">
+          <div>
+            <h2 id="projects-title">Projects</h2>
+            <p>Selected builds spanning web platforms, UI/UX design, image processing, and optimization-driven research.</p>
+          </div>
+        </div>
+        <div class="project-grid">
+          <article class="project-card">
+            <span class="project-meta">Image Processing / MATLAB</span>
+            <h3>Smart Parking Using Image Processing</h3>
+            <p>Designed a MATLAB-based parking analysis system to detect occupied and vacant slots with reliable image preprocessing and classification.</p>
+            <ul class="bullet-list">
+              <li>Used thresholding, edge detection, preprocessing, and feature extraction.</li>
+              <li>Applied SVM classification to improve accuracy under varied lighting conditions.</li>
+              <li>Displayed real-time slot availability through a GUI with visual parking indicators.</li>
+            </ul>
+          </article>
+          <article class="project-card">
+            <span class="project-meta">UI / UX Design</span>
+            <h3>Food Delivery App</h3>
+            <p>Created a food delivery experience in Figma with an easy navigation flow and polished order handling screens.</p>
+            <ul class="bullet-list">
+              <li>Focused on intuitive interactions and smooth order customization.</li>
+              <li>Included real-time delivery tracking and multiple payment options.</li>
+              <li>Designed for a hassle-free and user-friendly mobile ordering journey.</li>
+            </ul>
+          </article>
+          <article class="project-card">
+            <span class="project-meta">Web Development</span>
+            <h3>AI Spot</h3>
+            <p>Built a web-based AI tools discovery page using HTML, CSS, and JavaScript to centralize tool access in one clean interface.</p>
+            <ul class="bullet-list">
+              <li>Aggregated multiple AI tools into a single accessible platform.</li>
+              <li>Reduced the need to navigate across many separate websites.</li>
+              <li>Emphasized clarity, accessibility, and convenience in the interface.</li>
+            </ul>
+          </article>
+          <article class="project-card">
+            <span class="project-meta">Research / Optimization</span>
+            <h3>GWO-PowerGuard</h3>
+            <p>Proposed an adaptive power control framework using Grey Wolf Optimization for Cognitive Radio Wireless Sensor Networks.</p>
+            <ul class="bullet-list">
+              <li>Targeted reduced interference for Primary Users.</li>
+              <li>Worked toward improved throughput and energy efficiency for Secondary Users.</li>
+              <li>Framed the solution around adaptive control in CR-WSN environments.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="experience" class="panel section-shell" aria-labelledby="experience-title">
+      <div class="terminal-bar">
+        <div class="lights"><span></span><span></span><span></span></div>
+        <div class="bar-title">experience.log</div>
+      </div>
+      <div class="card-body">
+        <div class="section-head">
+          <div>
+            <h2 id="experience-title">Internships</h2>
+            <p>Hands-on exposure across responsive front-end development, UI/UX workflows, and full-stack fundamentals.</p>
+          </div>
+        </div>
+        <div class="timeline">
+          <article class="timeline-card">
+            <div class="timeline-top">
+              <h3>Web Development Intern — Ether Infotech</h3>
+              <span>Front-end</span>
+            </div>
+            <ul class="bullet-list">
+              <li>Worked on front-end development using HTML and CSS.</li>
+              <li>Built and styled responsive web pages with better usability.</li>
+              <li>Learned development best practices through collaboration with developers.</li>
+            </ul>
+          </article>
+          <article class="timeline-card">
+            <div class="timeline-top">
+              <h3>UI/UX Design Intern — AK Infopark</h3>
+              <span>Design Systems</span>
+            </div>
+            <ul class="bullet-list">
+              <li>Designed intuitive web and mobile interfaces with Figma.</li>
+              <li>Created wireframes and interactive prototypes based on user research and feedback.</li>
+              <li>Collaborated with developers and product teams to improve user experience.</li>
+            </ul>
+          </article>
+          <article class="timeline-card">
+            <div class="timeline-top">
+              <h3>Full Stack Developer Intern</h3>
+              <span>Application Development</span>
+            </div>
+            <ul class="bullet-list">
+              <li>Worked on both front-end and back-end parts of web applications.</li>
+              <li>Built responsive user interfaces and handled basic server-side data tasks.</li>
+              <li>Gained practical experience with databases, APIs, and team-based development.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="certifications" class="panel section-shell" aria-labelledby="certifications-title">
+      <div class="terminal-bar">
+        <div class="lights"><span></span><span></span><span></span></div>
+        <div class="bar-title">achievements.db</div>
+      </div>
+      <div class="card-body">
+        <div class="section-head">
+          <div>
+            <h2 id="certifications-title">Achievements &amp; Certifications</h2>
+            <p>A compact record of training, coursework, and technical participation.</p>
+          </div>
+        </div>
+        <div class="two-col" style="grid-template-columns: 1.1fr 0.9fr;">
+          <article class="certs-card">
+            <h3>Certifications</h3>
+            <ul class="cert-list">
+              <li>Java Programming — Infosys Springboard.</li>
+              <li>Intro to UI/UX Design — Le Wagon.</li>
+              <li>Effective UX Design — Infosys Springboard.</li>
+              <li>HTML, CSS, and JavaScript for Web Developers — Coursera / Udemy.</li>
+              <li>Introduction to Programming in C — Sololearn / NPTEL.</li>
+              <li>Problem Solving Through Programming in C — NPTEL.</li>
+              <li>Introduction to Internet of Things — NPTEL.</li>
+              <li>Image Processing with MATLAB and MATLAB Onramp — MATLAB.</li>
+            </ul>
+          </article>
+          <article class="certs-card">
+            <h3>Additional</h3>
+            <ul class="key-list">
+              <li>Silver Elite distinction in NPTEL-related achievement context.</li>
+              <li>Technical club memberships in <span class="accent-cyan">Optica</span> and <span class="accent-cyan">IETE</span>.</li>
+              <li>Comfort working across software, design, and applied engineering domains.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="panel section-shell" aria-labelledby="contact-title">
+      <div class="terminal-bar">
+        <div class="lights"><span></span><span></span><span></span></div>
+        <div class="bar-title">contact.exec</div>
+      </div>
+      <div class="card-body">
+        <div class="section-head">
+          <div>
+            <h2 id="contact-title">Contact</h2>
+            <p>Open for software development, web development, UI/UX, and entry-level technical opportunities.</p>
+          </div>
+        </div>
+        <div class="extras-grid">
+          <article class="mini-card">
+            <h3>Direct Reach</h3>
+            <ul class="key-list">
+              <li>Email: ssudheesh97432@gmail.com</li>
+              <li>Phone: +91 9629244519</li>
+              <li>Location base: Tamil Nadu, India</li>
+            </ul>
+          </article>
+          <article class="mini-card">
+            <h3>Profiles</h3>
+            <div class="chip-wrap">
+              <span class="chip">GitHub</span>
+              <span class="chip">LinkedIn</span>
+              <span class="chip">HackerRank</span>
+              <span class="chip">GeeksforGeeks</span>
+            </div>
+          </article>
+        </div>
+
+        <div class="footer-card">
+          <div>
+            <h3>Ready for the next build</h3>
+            <p>
+              Looking for opportunities where strong fundamentals, learning speed, and practical execution matter. Best fit areas include front-end development, full-stack support, UI/UX collaboration, and software engineering trainee roles.
+            </p>
+            <div class="cta-row">
+              <a class="btn btn-primary" href="mailto:ssudheesh97432@gmail.com">Send Email</a>
+              <a class="btn btn-secondary" href="tel:+919629244519">Call Now</a>
+            </div>
+          </div>
+          <div>
+          
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const navLinks = Array.from(document.querySelectorAll('.nav a'));
+    const sections = navLinks.map(link => document.querySelector(link.getAttribute('href'))).filter(Boolean);
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        navLinks.forEach(link => link.classList.toggle('active', link.getAttribute('href') === '#' + entry.target.id));
+      });
+    }, { rootMargin: '-30% 0px -55% 0px', threshold: 0.1 });
+    sections.forEach(section => observer.observe(section));
+  </script>
+</body>
+</html>
