@@ -10,7 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,300;1,9..144,700&display=swap" rel="stylesheet">
 
   <style>
-    /* ─── TOKENS ─────────────────────────────────────── */
+    /* ─── LIGHT MODE TOKENS ──────────────────────────── */
     :root {
       --white:   #ffffff;
       --bg:      #f9f8f6;
@@ -33,6 +33,44 @@
       --t3: 500ms var(--ease);
       --r: 12px;
       --r-lg: 20px;
+      /* shadows */
+      --shadow-sm: 0 4px 14px rgba(26,25,22,0.10);
+      --shadow-md: 0 8px 40px rgba(26,25,22,0.07);
+      --shadow-lg: 0 20px 60px rgba(26,25,22,0.12);
+      --shadow-xl: 0 24px 64px rgba(26,25,22,0.12);
+      /* nav bg */
+      --nav-bg: rgba(249,248,246,0.88);
+      /* hero-card head gradient */
+      --hc-grad: linear-gradient(135deg, #1a1916 0%, #3d3b36 100%);
+      /* cta banner */
+      --cta-grad: linear-gradient(135deg, #1a1916 0%, #2e2c28 100%);
+      /* exp icon grad */
+      --exp-icon-grad: linear-gradient(135deg, #1a1916 0%, #3d3b36 100%);
+      --exp-icon-color: #fff;
+    }
+
+    /* ─── DARK MODE TOKENS ───────────────────────────── */
+    [data-theme="dark"] {
+      --bg:      #111110;
+      --surface: #1c1c1a;
+      --border:  #2e2d29;
+      --border2: #3a3935;
+      --text:    #f0ede8;
+      --text-2:  #c8c4bc;
+      --text-3:  #8c8880;
+      --muted:   #5a5752;
+      --gold:    #d4aa50;
+      --gold-lt: #e8c97a;
+      --gold-bg: #1e1a0e;
+      --shadow-sm: 0 4px 14px rgba(0,0,0,0.40);
+      --shadow-md: 0 8px 40px rgba(0,0,0,0.35);
+      --shadow-lg: 0 20px 60px rgba(0,0,0,0.50);
+      --shadow-xl: 0 24px 64px rgba(0,0,0,0.50);
+      --nav-bg: rgba(17,17,16,0.90);
+      --hc-grad: linear-gradient(135deg, #242420 0%, #2e2d29 100%);
+      --cta-grad: linear-gradient(135deg, #1c1c1a 0%, #242420 100%);
+      --exp-icon-grad: linear-gradient(135deg, #2e2d29 0%, #3a3935 100%);
+      --exp-icon-color: var(--gold);
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -45,6 +83,7 @@
       color: var(--text);
       background: var(--bg);
       overflow-x: hidden;
+      transition: background 300ms ease, color 300ms ease;
     }
     body.no-scroll { overflow: hidden; }
     a { color: inherit; text-decoration: none; }
@@ -68,10 +107,11 @@
       position: sticky;
       top: 0;
       z-index: 200;
-      background: rgba(249,248,246,0.88);
+      background: var(--nav-bg);
       backdrop-filter: blur(18px);
       -webkit-backdrop-filter: blur(18px);
       border-bottom: 1px solid var(--border);
+      transition: background 300ms ease, border-color 300ms ease;
     }
 
     .nav-inner {
@@ -93,6 +133,7 @@
       letter-spacing: -0.01em;
       white-space: nowrap;
       flex-shrink: 0;
+      transition: color 300ms ease;
     }
     .nav-brand span { color: var(--gold); }
 
@@ -132,13 +173,60 @@
     }
     .nav-links a:hover, .nav-links a.active {
       color: var(--text);
-      background: rgba(196,154,60,0.08);
+      background: rgba(196,154,60,0.10);
     }
     .nav-links a:hover::after, .nav-links a.active::after {
       transform: scaleX(1);
     }
 
-    /* hamburger – RIGHT side */
+    /* ─── DARK MODE TOGGLE ───────────────────────────── */
+    .theme-toggle {
+      position: relative;
+      width: 52px;
+      height: 28px;
+      border-radius: 100px;
+      border: 1.5px solid var(--border2);
+      background: var(--surface);
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: background var(--t1), border-color var(--t1), box-shadow var(--t1);
+      display: flex;
+      align-items: center;
+      padding: 3px;
+    }
+    .theme-toggle:hover {
+      border-color: var(--gold-lt);
+      box-shadow: 0 0 0 3px rgba(196,154,60,0.12);
+    }
+    .theme-toggle-thumb {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--bg);
+      border: 1.5px solid var(--border2);
+      display: grid;
+      place-items: center;
+      font-size: 11px;
+      line-height: 1;
+      transition: transform 300ms var(--ease), background 300ms ease, border-color 300ms ease;
+      transform: translateX(0);
+      user-select: none;
+    }
+    [data-theme="dark"] .theme-toggle-thumb {
+      transform: translateX(24px);
+      background: var(--gold-bg);
+      border-color: var(--gold-lt);
+    }
+    [data-theme="dark"] .theme-toggle {
+      background: #242420;
+      border-color: var(--gold-lt);
+    }
+    .theme-toggle .icon-sun { display: block; }
+    .theme-toggle .icon-moon { display: none; }
+    [data-theme="dark"] .theme-toggle .icon-sun { display: none; }
+    [data-theme="dark"] .theme-toggle .icon-moon { display: block; }
+
+    /* hamburger */
     .hamburger {
       display: none;
       flex-direction: column;
@@ -161,17 +249,25 @@
       height: 2px;
       background: var(--text-2);
       border-radius: 2px;
-      transition: transform var(--t2), opacity var(--t2), width var(--t2);
+      transition: transform var(--t2), opacity var(--t2), width var(--t2), background var(--t2);
     }
     .hamburger.open span:nth-child(1) { transform: translateY(7.5px) rotate(45deg); }
     .hamburger.open span:nth-child(2) { opacity: 0; width: 0; }
     .hamburger.open span:nth-child(3) { transform: translateY(-7.5px) rotate(-45deg); }
 
+    /* nav right cluster */
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      flex-shrink: 0;
+    }
+
     /* mobile drawer */
     .mob-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(26,25,22,0.5);
+      background: rgba(0,0,0,0.55);
       backdrop-filter: blur(4px);
       opacity: 0;
       pointer-events: none;
@@ -190,11 +286,11 @@
       border-left: 1px solid var(--border);
       z-index: 301;
       transform: translateX(100%);
-      transition: transform var(--t2);
+      transition: transform var(--t2), background 300ms ease, border-color 300ms ease;
       display: flex;
       flex-direction: column;
       padding: 1.5rem;
-      box-shadow: -20px 0 60px rgba(0,0,0,0.1);
+      box-shadow: -20px 0 60px rgba(0,0,0,0.15);
     }
     .mob-drawer.open { transform: translateX(0); }
 
@@ -221,9 +317,9 @@
       display: grid;
       place-items: center;
       color: var(--text-3);
-      transition: background var(--t1), color var(--t1);
+      transition: background var(--t1), color var(--t1), border-color var(--t1);
     }
-    .mob-close:hover { background: var(--gold-bg); color: var(--gold); }
+    .mob-close:hover { background: var(--gold-bg); color: var(--gold); border-color: var(--gold-lt); }
 
     .mob-nav { list-style: none; display: flex; flex-direction: column; gap: 0.25rem; }
     .mob-nav a {
@@ -262,10 +358,7 @@
     section { scroll-margin-top: 88px; }
 
     /* ─── HERO ───────────────────────────────────────── */
-    .hero-section {
-      background: var(--bg);
-      padding: 0;
-    }
+    .hero-section { background: var(--bg); padding: 0; }
 
     .hero {
       max-width: 1280px;
@@ -313,6 +406,7 @@
       color: var(--text);
       letter-spacing: -0.03em;
       margin-bottom: 1.5rem;
+      transition: color 300ms ease;
     }
     .hero h1 em {
       font-style: italic;
@@ -334,6 +428,7 @@
       font-size: 0.78rem;
       font-weight: 600;
       color: var(--text-2);
+      transition: background 300ms ease, border-color 300ms ease, color 300ms ease;
     }
 
     .hero-desc {
@@ -343,6 +438,7 @@
       line-height: 1.8;
       max-width: 52ch;
       margin-bottom: 2.25rem;
+      transition: color 300ms ease;
     }
 
     .hero-btns {
@@ -358,20 +454,21 @@
       gap: 0.5rem;
       padding: 0.85rem 1.75rem;
       background: var(--text);
-      color: #fff;
+      color: var(--bg);
       font-size: 0.85rem;
       font-weight: 700;
       letter-spacing: 0.03em;
       border-radius: 10px;
       border: 2px solid var(--text);
-      transition: background var(--t1), border-color var(--t1), transform var(--t1), box-shadow var(--t1);
-      box-shadow: 0 4px 14px rgba(26,25,22,0.18);
+      transition: background var(--t1), border-color var(--t1), transform var(--t1), box-shadow var(--t1), color var(--t1);
+      box-shadow: var(--shadow-sm);
     }
     .btn-primary:hover {
       background: var(--gold);
       border-color: var(--gold);
+      color: #fff;
       transform: translateY(-3px);
-      box-shadow: 0 8px 24px rgba(196,154,60,0.32);
+      box-shadow: 0 8px 24px rgba(196,154,60,0.35);
     }
 
     .btn-secondary {
@@ -403,12 +500,13 @@
       border-radius: var(--r);
       overflow: hidden;
       background: var(--surface);
+      transition: background 300ms ease, border-color 300ms ease;
     }
     .h-stat {
       padding: 1.25rem 1rem;
       text-align: center;
       border-right: 1px solid var(--border);
-      transition: background var(--t1);
+      transition: background var(--t1), border-color 300ms ease;
     }
     .h-stat:last-child { border-right: 0; }
     .h-stat:hover { background: var(--gold-bg); }
@@ -420,6 +518,7 @@
       color: var(--text);
       line-height: 1;
       margin-bottom: 0.25rem;
+      transition: color 300ms ease;
     }
     .h-stat span {
       font-size: 0.7rem;
@@ -427,35 +526,38 @@
       letter-spacing: 0.1em;
       text-transform: uppercase;
       color: var(--muted);
+      transition: color 300ms ease;
     }
 
-    /* hero aside card */
+    /* hero card */
     .hero-card {
       background: var(--surface);
       border: 1.5px solid var(--border);
       border-radius: var(--r-lg);
       overflow: hidden;
-      box-shadow: 0 8px 40px rgba(26,25,22,0.07);
-      transition: box-shadow var(--t2), transform var(--t2);
+      box-shadow: var(--shadow-md);
+      transition: box-shadow var(--t2), transform var(--t2), background 300ms ease, border-color 300ms ease;
     }
     .hero-card:hover {
-      box-shadow: 0 20px 60px rgba(26,25,22,0.12);
+      box-shadow: var(--shadow-lg);
       transform: translateY(-4px);
     }
     .hc-head {
       padding: 1.25rem 1.5rem;
-      background: linear-gradient(135deg, var(--text) 0%, #3d3b36 100%);
+      background: var(--hc-grad);
       display: flex;
       align-items: center;
       gap: 0.75rem;
+      transition: background 300ms ease;
     }
     .hc-head-title {
       font-size: 0.72rem;
       font-weight: 700;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.6);
+      color: rgba(255,255,255,0.55);
     }
+    [data-theme="dark"] .hc-head-title { color: rgba(255,255,255,0.45); }
     .hc-dot { width: 8px; height: 8px; border-radius: 50%; }
     .hc-dot-r { background: #ff6b6b; }
     .hc-dot-y { background: var(--gold-lt); }
@@ -469,6 +571,7 @@
       padding: 0.65rem 0;
       border-bottom: 1px solid var(--border);
       align-items: start;
+      transition: border-color 300ms ease;
     }
     .hc-row:last-child { border-bottom: 0; padding-bottom: 0; }
     .hc-key {
@@ -478,19 +581,20 @@
       text-transform: uppercase;
       color: var(--muted);
       padding-top: 0.15rem;
+      transition: color 300ms ease;
     }
     .hc-val {
       font-size: 0.88rem;
       font-weight: 500;
       color: var(--text-2);
       line-height: 1.6;
+      transition: color 300ms ease;
     }
+    .hc-val a { transition: color var(--t1); }
     .hc-val a:hover { color: var(--gold); }
 
     /* ─── SECTION COMMON ─────────────────────────────── */
-    .section {
-      padding: 6rem 0;
-    }
+    .section { padding: 6rem 0; }
     .section + .section { border-top: 1px solid var(--border); }
 
     .section-eyebrow {
@@ -521,6 +625,7 @@
       letter-spacing: -0.02em;
       color: var(--text);
       margin-bottom: 0.75rem;
+      transition: color 300ms ease;
     }
 
     .section-desc {
@@ -529,6 +634,7 @@
       color: var(--text-3);
       max-width: 56ch;
       line-height: 1.8;
+      transition: color 300ms ease;
     }
 
     .section-header { margin-bottom: 3rem; }
@@ -545,11 +651,11 @@
       border: 1.5px solid var(--border);
       border-radius: var(--r-lg);
       padding: 2.25rem;
-      transition: transform var(--t2), box-shadow var(--t2), border-color var(--t2);
+      transition: transform var(--t2), box-shadow var(--t2), border-color var(--t2), background 300ms ease;
     }
     .about-card:hover {
       transform: translateY(-6px);
-      box-shadow: 0 20px 50px rgba(26,25,22,0.09);
+      box-shadow: var(--shadow-lg);
       border-color: var(--gold-lt);
     }
     .about-card h3 {
@@ -558,12 +664,14 @@
       font-weight: 700;
       color: var(--text);
       margin-bottom: 1rem;
+      transition: color 300ms ease;
     }
     .about-card p {
       font-size: 0.95rem;
       font-weight: 400;
       color: var(--text-3);
       line-height: 1.85;
+      transition: color 300ms ease;
     }
     .edu-list { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; }
     .edu-list li {
@@ -575,6 +683,7 @@
       padding-bottom: 0.75rem;
       border-bottom: 1px solid var(--border);
       line-height: 1.65;
+      transition: color 300ms ease, border-color 300ms ease;
     }
     .edu-list li:last-child { border-bottom: 0; padding-bottom: 0; }
     .edu-icon {
@@ -588,6 +697,7 @@
       font-size: 0.8rem;
       color: var(--gold);
       margin-top: 0.1rem;
+      transition: background 300ms ease, border-color 300ms ease;
     }
 
     /* ─── SKILLS ─────────────────────────────────────── */
@@ -602,22 +712,23 @@
       border: 1.5px solid var(--border);
       border-radius: var(--r-lg);
       padding: 1.75rem;
-      transition: transform var(--t2), box-shadow var(--t2), border-color var(--t2);
+      transition: transform var(--t2), box-shadow var(--t2), border-color var(--t2), background 300ms ease;
     }
     .skill-card:hover {
       transform: translateY(-6px) scale(1.01);
-      box-shadow: 0 18px 46px rgba(26,25,22,0.1);
+      box-shadow: var(--shadow-lg);
       border-color: var(--gold-lt);
     }
     .sk-icon {
       width: 44px; height: 44px;
       border-radius: 12px;
-      background: linear-gradient(135deg, var(--gold-bg), #fff8e1);
+      background: var(--gold-bg);
       border: 1.5px solid var(--gold-lt);
       display: grid;
       place-items: center;
       margin-bottom: 1rem;
       font-size: 1.25rem;
+      transition: background 300ms ease, border-color 300ms ease;
     }
     .skill-card h3 {
       font-size: 1rem;
@@ -625,6 +736,7 @@
       color: var(--text);
       margin-bottom: 1rem;
       letter-spacing: -0.01em;
+      transition: color 300ms ease;
     }
     .tags { display: flex; flex-wrap: wrap; gap: 0.45rem; }
     .tag {
@@ -659,7 +771,7 @@
       display: flex;
       flex-direction: column;
       gap: 0;
-      transition: transform var(--t2), box-shadow var(--t2), border-color var(--t2);
+      transition: transform var(--t2), box-shadow var(--t2), border-color var(--t2), background 300ms ease;
       position: relative;
       overflow: hidden;
     }
@@ -675,7 +787,7 @@
     }
     .project-card:hover {
       transform: translateY(-8px);
-      box-shadow: 0 24px 64px rgba(26,25,22,0.12);
+      box-shadow: var(--shadow-xl);
       border-color: var(--gold-lt);
     }
     .project-card:hover::before { transform: scaleX(1); }
@@ -695,6 +807,7 @@
       color: var(--text);
       margin-bottom: 0.75rem;
       line-height: 1.2;
+      transition: color 300ms ease;
     }
     .project-card p {
       font-size: 0.9rem;
@@ -702,6 +815,7 @@
       color: var(--text-3);
       line-height: 1.8;
       margin-bottom: 1.25rem;
+      transition: color 300ms ease;
     }
     .project-bullets { list-style: none; display: flex; flex-direction: column; gap: 0.4rem; margin-top: auto; }
     .project-bullets li {
@@ -712,6 +826,7 @@
       font-weight: 500;
       color: var(--text-3);
       line-height: 1.65;
+      transition: color 300ms ease;
     }
     .project-bullets li::before {
       content: '✦';
@@ -732,7 +847,7 @@
       display: grid;
       grid-template-columns: auto 1fr;
       gap: 1.5rem;
-      transition: transform var(--t2), box-shadow var(--t2), border-color var(--t2);
+      transition: transform var(--t2), box-shadow var(--t2), border-color var(--t2), background 300ms ease;
       position: relative;
       overflow: hidden;
     }
@@ -749,7 +864,7 @@
     }
     .exp-card:hover {
       transform: translateX(6px);
-      box-shadow: 0 12px 40px rgba(26,25,22,0.09);
+      box-shadow: var(--shadow-md);
       border-color: var(--gold-lt);
     }
     .exp-card:hover::after { transform: scaleY(1); }
@@ -757,12 +872,13 @@
     .exp-icon {
       width: 52px; height: 52px;
       border-radius: 14px;
-      background: linear-gradient(135deg, var(--text) 0%, #3d3b36 100%);
+      background: var(--exp-icon-grad);
       display: grid;
       place-items: center;
-      color: #fff;
+      color: var(--exp-icon-color);
       font-size: 1.35rem;
       flex-shrink: 0;
+      transition: background 300ms ease;
     }
     .exp-top {
       display: flex;
@@ -778,6 +894,7 @@
       font-weight: 700;
       color: var(--text);
       line-height: 1.2;
+      transition: color 300ms ease;
     }
     .exp-badge {
       padding: 0.3rem 0.75rem;
@@ -790,6 +907,7 @@
       text-transform: uppercase;
       color: var(--gold);
       white-space: nowrap;
+      transition: background 300ms ease, border-color 300ms ease;
     }
     .exp-bullets { list-style: none; display: flex; flex-direction: column; gap: 0.4rem; }
     .exp-bullets li {
@@ -799,6 +917,7 @@
       font-weight: 500;
       color: var(--text-3);
       line-height: 1.7;
+      transition: color 300ms ease;
     }
     .exp-bullets li::before {
       content: '→';
@@ -820,11 +939,11 @@
       border: 1.5px solid var(--border);
       border-radius: var(--r-lg);
       padding: 2rem;
-      transition: transform var(--t2), box-shadow var(--t2), border-color var(--t2);
+      transition: transform var(--t2), box-shadow var(--t2), border-color var(--t2), background 300ms ease;
     }
     .cert-card:hover {
       transform: translateY(-6px);
-      box-shadow: 0 20px 50px rgba(26,25,22,0.09);
+      box-shadow: var(--shadow-lg);
       border-color: var(--gold-lt);
     }
     .cert-card h3 {
@@ -833,6 +952,7 @@
       font-weight: 700;
       color: var(--text);
       margin-bottom: 1.25rem;
+      transition: color 300ms ease;
     }
     .cert-list { list-style: none; display: flex; flex-direction: column; }
     .cert-list li {
@@ -845,7 +965,7 @@
       font-weight: 500;
       color: var(--text-2);
       line-height: 1.6;
-      transition: color var(--t1), padding-left var(--t1);
+      transition: color var(--t1), padding-left var(--t1), border-color 300ms ease;
     }
     .cert-list li:last-child { border-bottom: 0; }
     .cert-list li:hover { color: var(--text); padding-left: 0.5rem; }
@@ -870,11 +990,11 @@
       border: 1.5px solid var(--border);
       border-radius: var(--r-lg);
       padding: 2rem;
-      transition: transform var(--t2), box-shadow var(--t2), border-color var(--t2);
+      transition: transform var(--t2), box-shadow var(--t2), border-color var(--t2), background 300ms ease;
     }
     .contact-card:hover {
       transform: translateY(-5px);
-      box-shadow: 0 16px 44px rgba(26,25,22,0.08);
+      box-shadow: var(--shadow-md);
       border-color: var(--gold-lt);
     }
     .contact-card h3 {
@@ -883,6 +1003,7 @@
       font-weight: 700;
       color: var(--text);
       margin-bottom: 1.25rem;
+      transition: color 300ms ease;
     }
     .contact-items { display: flex; flex-direction: column; gap: 0; }
     .c-row {
@@ -892,6 +1013,7 @@
       padding: 0.65rem 0;
       border-bottom: 1px solid var(--border);
       align-items: center;
+      transition: border-color 300ms ease;
     }
     .c-row:last-child { border-bottom: 0; }
     .c-key {
@@ -900,11 +1022,13 @@
       letter-spacing: 0.1em;
       text-transform: uppercase;
       color: var(--muted);
+      transition: color 300ms ease;
     }
     .c-val {
       font-size: 0.9rem;
       font-weight: 500;
       color: var(--text-2);
+      transition: color 300ms ease;
     }
     .c-val a { transition: color var(--t1); }
     .c-val a:hover { color: var(--gold); }
@@ -932,13 +1056,15 @@
 
     /* CTA banner */
     .cta-banner {
-      background: linear-gradient(135deg, var(--text) 0%, #2e2c28 100%);
+      background: var(--cta-grad);
+      border: 1.5px solid var(--border);
       border-radius: var(--r-lg);
       padding: 3.5rem;
       display: grid;
       grid-template-columns: 1fr auto;
       align-items: center;
       gap: 2rem;
+      transition: background 300ms ease, border-color 300ms ease;
     }
     .cta-banner h3 {
       font-family: var(--font-h);
@@ -947,6 +1073,7 @@
       color: #fff;
       margin-bottom: 0.6rem;
     }
+    [data-theme="dark"] .cta-banner h3 { color: var(--text); }
     .cta-banner p {
       font-size: 0.95rem;
       font-weight: 400;
@@ -954,6 +1081,7 @@
       max-width: 52ch;
       line-height: 1.8;
     }
+    [data-theme="dark"] .cta-banner p { color: var(--text-3); }
     .cta-btns { display: flex; flex-direction: column; gap: 0.65rem; min-width: 160px; }
     .btn-gold-solid {
       display: inline-flex;
@@ -989,12 +1117,23 @@
       border-radius: 10px;
       border: 2px solid rgba(255,255,255,0.15);
       white-space: nowrap;
-      transition: background var(--t1), border-color var(--t1), transform var(--t1);
+      transition: background var(--t1), border-color var(--t1), transform var(--t1), color var(--t1);
+    }
+    [data-theme="dark"] .btn-ghost {
+      background: rgba(255,255,255,0.04);
+      color: var(--text-2);
+      border-color: var(--border2);
     }
     .btn-ghost:hover {
       background: rgba(255,255,255,0.13);
       border-color: rgba(255,255,255,0.3);
+      color: #fff;
       transform: translateY(-2px);
+    }
+    [data-theme="dark"] .btn-ghost:hover {
+      background: var(--gold-bg);
+      border-color: var(--gold-lt);
+      color: var(--gold);
     }
 
     /* social links */
@@ -1015,7 +1154,7 @@
       font-weight: 700;
       color: var(--text-3);
       background: var(--surface);
-      transition: all var(--t1);
+      transition: border-color var(--t1), color var(--t1), background var(--t1), transform var(--t1);
     }
     .social-link:hover {
       border-color: var(--gold-lt);
@@ -1035,17 +1174,18 @@
       gap: 1rem;
       max-width: 1280px;
       margin: 0 auto;
+      transition: border-color 300ms ease;
     }
     .footer p {
       font-size: 0.78rem;
       font-weight: 500;
       color: var(--muted);
+      transition: color 300ms ease;
     }
 
     /* ─── RESPONSIVE ─────────────────────────────────── */
     @media (max-width: 1024px) {
       .hero { grid-template-columns: 1fr; min-height: auto; padding: 4rem 2rem 3rem; }
-      .hero::before { display: none; }
       .hero-card { max-width: 520px; }
       .about-grid { grid-template-columns: 1fr; }
       .skills-grid { grid-template-columns: repeat(2,1fr); }
@@ -1055,12 +1195,10 @@
       .cta-btns { flex-direction: row; flex-wrap: wrap; min-width: auto; }
     }
 
-    /* Switch to hamburger at 900px so nav links don't crowd */
     @media (max-width: 900px) {
       .nav-links { display: none !important; }
       .hamburger { display: flex !important; }
     }
-
     @media (min-width: 901px) {
       .hamburger { display: none !important; }
       .nav-links { display: flex !important; }
@@ -1112,9 +1250,18 @@
       <li><a href="#certifications">Certifications</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
-    <button class="hamburger" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="mobDrawer">
-      <span></span><span></span><span></span>
-    </button>
+    <div class="nav-right">
+      <!-- Dark mode toggle -->
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode" title="Toggle dark mode">
+        <div class="theme-toggle-thumb">
+          <span class="icon-sun">☀️</span>
+          <span class="icon-moon">🌙</span>
+        </div>
+      </button>
+      <button class="hamburger" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="mobDrawer">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
   </div>
 </header>
 
@@ -1278,7 +1425,6 @@
         <p class="section-desc">Selected builds spanning web platforms, UI/UX design, image processing, and optimization-driven research.</p>
       </div>
       <div class="project-grid">
-
         <div class="project-card reveal">
           <div class="project-type">Image Processing · MATLAB</div>
           <h3>Smart Parking System</h3>
@@ -1289,7 +1435,6 @@
             <li>Real-time slot availability GUI with visual parking indicators</li>
           </ul>
         </div>
-
         <div class="project-card reveal" style="transition-delay:80ms">
           <div class="project-type">UI / UX Design · Figma</div>
           <h3>Food Delivery App</h3>
@@ -1300,7 +1445,6 @@
             <li>User-friendly mobile ordering journey end-to-end</li>
           </ul>
         </div>
-
         <div class="project-card reveal" style="transition-delay:160ms">
           <div class="project-type">Web Development · HTML / CSS / JS</div>
           <h3>AI Spot</h3>
@@ -1311,7 +1455,6 @@
             <li>Emphasis on clarity, accessibility, and convenience</li>
           </ul>
         </div>
-
         <div class="project-card reveal" style="transition-delay:240ms">
           <div class="project-type">Research · Optimization · CR-WSN</div>
           <h3>GWO-PowerGuard</h3>
@@ -1322,7 +1465,6 @@
             <li>Framed within real CR-WSN environments and constraints</li>
           </ul>
         </div>
-
       </div>
     </div>
   </section>
@@ -1336,7 +1478,6 @@
         <p class="section-desc">Hands-on exposure across front-end development, UI/UX design workflows, and full-stack application development.</p>
       </div>
       <div class="exp-list">
-
         <div class="exp-card reveal">
           <div class="exp-icon">💻</div>
           <div>
@@ -1351,7 +1492,6 @@
             </ul>
           </div>
         </div>
-
         <div class="exp-card reveal" style="transition-delay:80ms">
           <div class="exp-icon">🎨</div>
           <div>
@@ -1366,7 +1506,6 @@
             </ul>
           </div>
         </div>
-
         <div class="exp-card reveal" style="transition-delay:160ms">
           <div class="exp-icon">⚙️</div>
           <div>
@@ -1381,7 +1520,6 @@
             </ul>
           </div>
         </div>
-
       </div>
     </div>
   </section>
@@ -1480,6 +1618,21 @@
 </footer>
 
 <script>
+  // ── Theme toggle ─────────────────────────────────────
+  const themeToggle = document.getElementById('themeToggle');
+  const html = document.documentElement;
+
+  // Load saved preference or default to light
+  const savedTheme = localStorage.getItem('theme') || 'light';
+  html.setAttribute('data-theme', savedTheme);
+
+  themeToggle.addEventListener('click', () => {
+    const current = html.getAttribute('data-theme');
+    const next = current === 'dark' ? 'light' : 'dark';
+    html.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+  });
+
   // ── Mobile menu ──────────────────────────────────────
   const menuBtn  = document.getElementById('menuBtn');
   const closeBtn = document.getElementById('closeBtn');
@@ -1508,20 +1661,18 @@
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
   window.addEventListener('resize', () => { if (window.innerWidth > 768) closeMenu(); });
 
-  // ── Active nav (scroll-position based — reliable for all section heights) ──
+  // ── Active nav ───────────────────────────────────────
   const navLinks = document.querySelectorAll('.nav-links a');
   const sections = [...document.querySelectorAll('section[id]')];
 
   function setActiveNav() {
     const scrollY = window.scrollY;
-    const navH = 88; // sticky nav height + buffer
-
+    const navH = 88;
     let currentId = sections[0].id;
     sections.forEach(sec => {
       const top = sec.getBoundingClientRect().top + scrollY - navH - 30;
       if (scrollY >= top) currentId = sec.id;
     });
-
     navLinks.forEach(link => {
       link.classList.toggle('active', link.getAttribute('href') === '#' + currentId);
     });
