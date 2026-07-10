@@ -836,6 +836,29 @@
       flex-shrink: 0;
     }
 
+    .project-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      margin-top: 1.5rem;
+      padding: 0.65rem 1.25rem;
+      background: var(--text);
+      color: var(--bg);
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      border-radius: 8px;
+      border: 1.5px solid var(--text);
+      align-self: flex-start;
+      transition: background var(--t1), color var(--t1), transform var(--t1), border-color var(--t1);
+    }
+    .project-btn:hover {
+      background: var(--gold);
+      border-color: var(--gold);
+      color: #fff;
+      transform: translateY(-2px);
+    }
+
     /* ─── EXPERIENCE ─────────────────────────────────── */
     .exp-list { display: flex; flex-direction: column; gap: 1.25rem; }
 
@@ -1396,6 +1419,7 @@
           <div class="tags">
             <span class="tag">HTML5</span>
             <span class="tag">CSS3</span>
+            <span class="tag">React</span>
             <span class="tag">Bootstrap</span>
             <span class="tag">Tailwind CSS</span>
           </div>
@@ -1434,6 +1458,7 @@
             <li>SVM classification to improve accuracy under varied lighting</li>
             <li>Real-time slot availability GUI with visual parking indicators</li>
           </ul>
+          <button class="project-btn" type="button">View Project →</button>
         </div>
         <div class="project-card reveal" style="transition-delay:80ms">
           <div class="project-type">UI / UX Design · Figma</div>
@@ -1444,6 +1469,7 @@
             <li>Real-time delivery tracking with multiple payment options</li>
             <li>User-friendly mobile ordering journey end-to-end</li>
           </ul>
+          <button class="project-btn" type="button">View Project →</button>
         </div>
         <div class="project-card reveal" style="transition-delay:160ms">
           <div class="project-type">Web Development · HTML / CSS / JS</div>
@@ -1454,6 +1480,7 @@
             <li>Eliminates the need to navigate across many separate websites</li>
             <li>Emphasis on clarity, accessibility, and convenience</li>
           </ul>
+          <button class="project-btn" type="button">View Project →</button>
         </div>
         <div class="project-card reveal" style="transition-delay:240ms">
           <div class="project-type">Research · Optimization · CR-WSN</div>
@@ -1464,6 +1491,7 @@
             <li>Improved throughput and energy efficiency for Secondary Users</li>
             <li>Framed within real CR-WSN environments and constraints</li>
           </ul>
+          <button class="project-btn" type="button">View Project →</button>
         </div>
       </div>
     </div>
