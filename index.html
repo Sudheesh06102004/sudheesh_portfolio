@@ -1689,27 +1689,52 @@
 </footer>
 
 <script>
-  // ── Theme toggle ─────────────────────────────────────
-  const themeToggle = document.getElementById('themeToggle');
-  const html = document.documentElement;
+  /* ============================================================
+     Sudheesh Portfolio - script.js (SIMPLE VERSION for beginners)
+     4 parts:
+     1. THEME TOGGLE   - switch light/dark mode
+     2. MOBILE MENU    - open/close the side drawer
+     3. ACTIVE NAV     - highlight the nav link for the section you're on
+     4. SCROLL REVEAL  - fade sections in as you scroll to them
+     ============================================================ */
 
-  // Load saved preference or default to light
-  const savedTheme = localStorage.getItem('theme') || 'light';
+
+  /* ---------------- 1. THEME TOGGLE ---------------- */
+
+  var themeToggle = document.getElementById('themeToggle');
+  var html = document.documentElement;
+
+  // Load saved theme, or use 'light' if nothing saved yet
+  var savedTheme = localStorage.getItem('theme');
+  if (!savedTheme) {
+    savedTheme = 'light';
+  }
   html.setAttribute('data-theme', savedTheme);
 
-  themeToggle.addEventListener('click', () => {
-    const current = html.getAttribute('data-theme');
-    const next = current === 'dark' ? 'light' : 'dark';
+  // When the toggle button is clicked, flip between light and dark
+  themeToggle.addEventListener('click', function () {
+    var current = html.getAttribute('data-theme');
+    var next;
+
+    if (current === 'dark') {
+      next = 'light';
+    } else {
+      next = 'dark';
+    }
+
     html.setAttribute('data-theme', next);
     localStorage.setItem('theme', next);
   });
 
-  // ── Mobile menu ──────────────────────────────────────
-  const menuBtn  = document.getElementById('menuBtn');
-  const closeBtn = document.getElementById('closeBtn');
-  const overlay  = document.getElementById('overlay');
-  const drawer   = document.getElementById('mobDrawer');
 
+  /* ---------------- 2. MOBILE MENU ---------------- */
+
+  var menuBtn = document.getElementById('menuBtn');
+  var closeBtn = document.getElementById('closeBtn');
+  var overlay = document.getElementById('overlay');
+  var drawer = document.getElementById('mobDrawer');
+
+  // Open the side menu
   function openMenu() {
     drawer.classList.add('open');
     overlay.classList.add('open');
@@ -1717,6 +1742,8 @@
     document.body.classList.add('no-scroll');
     menuBtn.setAttribute('aria-expanded', 'true');
   }
+
+  // Close the side menu
   function closeMenu() {
     drawer.classList.remove('open');
     overlay.classList.remove('open');
@@ -1728,41 +1755,77 @@
   menuBtn.addEventListener('click', openMenu);
   closeBtn.addEventListener('click', closeMenu);
   overlay.addEventListener('click', closeMenu);
-  drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
-  window.addEventListener('resize', () => { if (window.innerWidth > 768) closeMenu(); });
 
-  // ── Active nav ───────────────────────────────────────
-  const navLinks = document.querySelectorAll('.nav-links a');
-  const sections = [...document.querySelectorAll('section[id]')];
+  // Close the menu whenever a link inside the drawer is clicked
+  var drawerLinks = drawer.querySelectorAll('a');
+  for (var i = 0; i < drawerLinks.length; i++) {
+    drawerLinks[i].addEventListener('click', closeMenu);
+  }
+
+  // Close the menu when the Escape key is pressed
+  document.addEventListener('keydown', function (event) {
+    if (event.key === 'Escape') {
+      closeMenu();
+    }
+  });
+
+  // Close the menu automatically if the window gets resized to desktop width
+  window.addEventListener('resize', function () {
+    if (window.innerWidth > 768) {
+      closeMenu();
+    }
+  });
+
+
+  /* ---------------- 3. ACTIVE NAV (highlight current section) ---------------- */
+
+  var navLinks = document.querySelectorAll('.nav-links a');
+  var sections = document.querySelectorAll('section[id]');
 
   function setActiveNav() {
-    const scrollY = window.scrollY;
-    const navH = 88;
-    let currentId = sections[0].id;
-    sections.forEach(sec => {
-      const top = sec.getBoundingClientRect().top + scrollY - navH - 30;
-      if (scrollY >= top) currentId = sec.id;
-    });
-    navLinks.forEach(link => {
-      link.classList.toggle('active', link.getAttribute('href') === '#' + currentId);
-    });
+    var scrollY = window.scrollY;
+    var navHeight = 88;
+    var currentId = sections[0].id; // default to the first section
+
+    // Find the last section whose top has scrolled past the nav bar
+    for (var i = 0; i < sections.length; i++) {
+      var section = sections[i];
+      var sectionTop = section.getBoundingClientRect().top + scrollY - navHeight - 30;
+
+      if (scrollY >= sectionTop) {
+        currentId = section.id;
+      }
+    }
+
+    // Mark the matching nav link as active, un-mark the rest
+    for (var j = 0; j < navLinks.length; j++) {
+      var link = navLinks[j];
+      var isMatch = (link.getAttribute('href') === '#' + currentId);
+      link.classList.toggle('active', isMatch);
+    }
   }
 
   window.addEventListener('scroll', setActiveNav, { passive: true });
-  setActiveNav();
+  setActiveNav(); // run once on page load too
 
-  // ── Scroll reveal ────────────────────────────────────
-  const revealObserver = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('visible');
-        revealObserver.unobserve(e.target);
+
+  /* ---------------- 4. SCROLL REVEAL (fade sections in) ---------------- */
+
+  var revealObserver = new IntersectionObserver(function (entries) {
+    for (var i = 0; i < entries.length; i++) {
+      var entry = entries[i];
+
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        revealObserver.unobserve(entry.target); // only reveal once
       }
-    });
+    }
   }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
 
-  document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+  var revealElements = document.querySelectorAll('.reveal');
+  for (var k = 0; k < revealElements.length; k++) {
+    revealObserver.observe(revealElements[k]);
+  }
 </script>
 
 </body>
